@@ -71,12 +71,11 @@ variables:
   garbage_sensor_2: !input 'garbage_sensor_2'
   garbage_sensor_3: !input 'garbage_sensor_3'
   garbage_sensor_4: !input 'garbage_sensor_4'
-  garbage_sensor_5: !input 'garbage_sensor_5'
   reminder_title: !input 'reminder_title'
   reminder_message: !input 'reminder_message'
   day_offset: !input 'day_offset'
   date_format: !input 'date_format'
-  sensors_tomorrow: '{{ [(state_attr(garbage_sensor_1, ''friendly_name''), states(garbage_sensor_1)), (state_attr(garbage_sensor_2, ''friendly_name''), states(garbage_sensor_2)), (state_attr(garbage_sensor_3, ''friendly_name''), states(garbage_sensor_3)), (state_attr(garbage_sensor_4, ''friendly_name''), states(garbage_sensor_4)), (state_attr(garbage_sensor_5, ''friendly_name''), states(garbage_sensor_5))] | selectattr(''1'', ''eq'', (now() + timedelta(days = day_offset | int)).strftime(date_format)) | join('', '',  attribute=0) }}'
+  sensors_tomorrow: '{{ [(state_attr(garbage_sensor_1, ''friendly_name''), states(garbage_sensor_1)), (state_attr(garbage_sensor_2, ''friendly_name''), states(garbage_sensor_2)), (state_attr(garbage_sensor_3, ''friendly_name''), states(garbage_sensor_3)), (state_attr(garbage_sensor_4, ''friendly_name''), states(garbage_sensor_4))] | selectattr(''1'', ''eq'', (now() + timedelta(days = day_offset | int)).strftime(date_format)) | join('', '',  attribute=0) }}'
 trigger:
   platform: time
   at: !input 'reminder_time'
